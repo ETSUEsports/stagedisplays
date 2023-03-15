@@ -1,0 +1,50 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background-image: url('../images/etsuconbg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.team, .vs, .etsuesports, .etsucon, .tricitiesslam{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.team_logo, .vs_icon {
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+}
+
+.etsuesports_logo {
+    width: auto;
+    height: auto;
+    max-width: 900px;
+}
+
+.tricitiesslam_logo{
+    width: auto;
+    height: auto;
+    max-width: 90vw;
+}
+
+.etsucon_logo{
+    width: 50%;
+    height: auto;
+}

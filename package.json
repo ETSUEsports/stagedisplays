@@ -1,0 +1,52 @@
+{
+  "name": "stagedisplays",
+  "version": "0.0.0",
+  "description": "",
+  "homepage": "",
+  "author": {
+    "name": "Russell Payne",
+    "email": "ryois@ryois.me",
+    "url": "https://ryois.me"
+  },
+  "files": [
+    "dashboard",
+    "graphics",
+    "extension.js",
+    "extension"
+  ],
+  "keywords": [
+    "",
+    "nodecg-bundle"
+  ],
+  "nodecg": {
+    "compatibleRange": "^1.1.1",
+    "dashboardPanels": [
+      {
+        "name": "stage-displays",
+        "title": "Stage Displays",
+        "fullbleed": true,
+        "file": "stage-displays.html",
+        "headerColor": "#525F78"
+      }
+    ],
+    "graphics": [
+      {
+        "file": "display1.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "display2.html",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "display3.html",
+        "width": 1920,
+        "height": 1080
+      }
+    ]
+  },
+  "repository": "https://github.com/nodecg/nodecg.git",
+  "license": "MIT"
+}

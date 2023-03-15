@@ -1,0 +1,19 @@
+h1, h2, h3, h4, h5, h6, p {
+    font-weight: normal;
+}
+
+.header{
+    font-weight: bold;
+}
+
+body {
+    background-color: #2F3A4F;
+}
+
+.current_mode, .mode_select{
+    text-transform: capitalize;
+}
+
+.save_row{
+    margin-top: 40px;
+}
