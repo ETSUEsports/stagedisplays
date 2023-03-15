@@ -1,8 +1,14 @@
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
     font-weight: normal;
 }
 
-.header{
+.header {
     font-weight: bold;
 }
 
@@ -10,10 +16,92 @@ body {
     background-color: #2F3A4F;
 }
 
-.current_mode, .mode_select{
+.current_mode,
+.mode_select {
     text-transform: capitalize;
 }
 
-.save_row{
-    margin-top: 40px;
+.save_row {
+    margin-top: 10px;
+}
+
+
+.status-light {
+    align-items: center;
+    display: flex;
+}
+
+.status-light__title {
+    font-weight: bold;
+    margin-right: 0.5rem;
+}
+
+.status-light__content {
+    flex: 1;
+}
+
+.status-light__status {
+
+    background-color: #6b7280;
+    border-radius: 9999px;
+    height: 0.5rem;
+    width: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.status-light__status.connected{
+    background-color: #16a34a;
+}
+
+.status-light__status.error{
+    background-color: #f59e0b;
+}
+
+.status-light__status.disconnected{
+    background-color: #dc2626;
+}
+
+
+.labl {
+    display : block;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 1rem;
+}
+.labl > input{ /* HIDE RADIO */
+    visibility: hidden; /* Makes input not-clickable */
+    position: absolute; /* Remove input from document flow */
+}
+.labl > input + div{ /* DIV STYLES */
+    cursor:pointer;
+    border:2px solid transparent;
+}
+.labl > input:checked + div{ /* (RADIO CHECKED) DIV STYLES */
+    background-color: #ff6600;
+    border: 1px solid #41220e;
+}
+
+.team_select_option{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border: 1px solid #6b7280;
+    border-radius: 0.25rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 190px;
+}
+
+.team_select_name{
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.team_select_container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }

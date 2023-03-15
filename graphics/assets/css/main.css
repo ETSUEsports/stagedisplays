@@ -1,4 +1,10 @@
-html, body {
+@font-face {
+    font-family: 'IntegralCF-ExtraBold';
+    src: url('../fonts/IntegralCF-ExtraBold.woff2');
+}
+
+html,
+body {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -19,17 +25,84 @@ html, body {
     justify-content: center;
     align-items: center;
 }
-.team, .vs, .etsuesports, .etsucon, .tricitiesslam{
+
+.team,
+.score,
+.vs,
+.etsuesports,
+.etsucon,
+.tricitiesslam {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.team_logo, .vs_icon {
+
+.team_logo,
+.vs_icon {
     width: 100%;
     height: 100%;
     max-width: 800px;
+}
+
+.score{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.score_left{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+.score_middle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 10%;
+    height: 100%;
+}
+
+.score_right{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+.score_logo {
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+}
+
+.score_separator {
+    font-size: 10vh;
+    font-weight: bold;
+    color: white;
+    font-family: IntegralCF-ExtraBold;
+    position: relative;
+    top: -1vh;
+}
+
+.score_text {
+    font-size: 90vh;
+    font-weight: bold;
+    color: white;
+    font-family: IntegralCF-ExtraBold;
+    position: relative;
+    top: -10vh;
+    font-variant-numeric: tabular-nums;
 }
 
 .etsuesports_logo {
@@ -38,13 +111,13 @@ html, body {
     max-width: 900px;
 }
 
-.tricitiesslam_logo{
+.tricitiesslam_logo {
     width: auto;
     height: auto;
     max-width: 90vw;
 }
 
-.etsucon_logo{
+.etsucon_logo {
     width: 50%;
     height: auto;
 }

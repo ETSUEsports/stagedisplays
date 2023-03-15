@@ -5,7 +5,6 @@ module.exports = function (nodecg) {
 	const display1 = nodecg.Replicant('display1');
 	const display2 = nodecg.Replicant('display2');
 	const display3 = nodecg.Replicant('display3');
-	
 	nodecg.log.info('Stage Displays Extension Starting Up...');
 
 	// Listen for changes to the display1 replicant
@@ -28,4 +27,6 @@ module.exports = function (nodecg) {
 			nodecg.log.info(`Display3 Changed: ${JSON.stringify(newVal)}`);
 		}
 	});
+
+
 };

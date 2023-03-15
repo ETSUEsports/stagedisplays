@@ -1,11 +1,52 @@
 const display1 = nodecg.Replicant('display1');
 const display2 = nodecg.Replicant('display2');
 const display3 = nodecg.Replicant('display3');
+const graphicInstances = nodecg.Replicant('graphics:instances', 'nodecg');
 const teams = nodecg.Replicant('teams');
 
-const modes = [{ value: "etsuesports", name: "ETSU Esports Logo" }, { value: "tricitiesslam", name: "Tri Cities Slam Logo" }, { value: "etsucon", name: "ETSU Con Logo" }, { value: "team", name: "Team Logos" }, { value: "vs", name: "VS Text" }, { value: "score", name: "Score" }];
+const modes = [{ value: "etsuesports", name: "ETSU Esports Logo" }, { value: "tricitiesslam", name: "Tri Cities Slam Logo" }, { value: "etsucon", name: "ETSU Con Logo" }, { value: "team", name: "Team Logos" }, { value: "vs", name: "VS Text" }, { value: "score", name: "Team Score" }];
+
+let displayStatus = { display1: false, display2: false, display3: false };
 
 $(document).ready(function () {
+    graphicInstances.on('change', (newVal, oldVal) => {
+        if (typeof newVal !== "undefined") {
+            console.log(newVal);
+            newVal.forEach(instance => {
+                if (instance.bundleName == "stagedisplays") {
+                    if (instance.pathName == "/bundles/stagedisplays/graphics/display1.html") {
+                        $("#display1-status-light").removeClass("connected disconnected error").addClass("connected");
+                        $("#display1-status-text").text("Connected");
+                        displayStatus.display1 = true;
+                    }
+                    else if (instance.pathName == "/bundles/stagedisplays/graphics/display2.html") {
+                        $("#display2-status-light").removeClass("connected disconnected error").addClass("connected");
+                        $("#display2-status-text").text("Connected");
+                        displayStatus.display2 = true;
+                    }
+                    else if (instance.pathName == "/bundles/stagedisplays/graphics/display3.html") {
+                        $("#display3-status-light").removeClass("connected disconnected error").addClass("connected");
+                        $("#display3-status-text").text("Connected");
+                        displayStatus.display3 = true;
+                    }
+                }
+            });
+            if (!displayStatus.display1) {
+                $("#display1-status-light").removeClass("connected disconnected error").addClass("disconnected");
+                $("#display1-status-text").text("Disconnected");
+            }
+            if (!displayStatus.display2) {
+                $("#display2-status-light").removeClass("connected disconnected error").addClass("disconnected");
+                $("#display2-status-text").text("Disconnected");
+            }
+            if (!displayStatus.display3) {
+                $("#display3-status-light").removeClass("connected disconnected error").addClass("disconnected");
+                $("#display3-status-text").text("Disconnected");
+            }
+            displayStatus = { display1: false, display2: false, display3: false };
+        }
+    });
+
     display1.on('change', (newVal, oldVal) => {
         if (typeof newVal !== "undefined") {
             console.log('Display1 Changed:', newVal);
@@ -31,16 +72,13 @@ $(document).ready(function () {
         switch (this.value) {
             case "team":
                 nodecg.readReplicant('teams', value => {
-                    let teamOptions = "";
-                    value.forEach(element => {
-                        teamOptions += `<div class="form-check"><input class="form-check-input" type="radio" name="display1-team-radio" id="display1-team-radio-${element.name}" value="${element.name}"><label class="form-check-label" for="display1-team-radio-${element.name}">${element.name}</label></div>`;
-                    });
-                    $("#display1-settings").html(`<h4>Team</h4><form><div class="form-group">${teamOptions}</div></form>`);
+                    displayTeams(value, 'display1');
                 });
                 break;
             case "score":
-                $("#display1-settings").html(`<h4>Score</h4><h5>No Settings Available</h5>`);
-                break;
+                nodecg.readReplicant('teams', value => {
+                    displayScores(value, 'display1');
+                });
             default:
                 $("#display1-settings").html(`<h4>No Settings Available</h4>`);
                 break;
@@ -50,16 +88,13 @@ $(document).ready(function () {
         switch (this.value) {
             case "team":
                 nodecg.readReplicant('teams', value => {
-                    let teamOptions = "";
-                    value.forEach(element => {
-                        teamOptions += `<div class="form-check"><input class="form-check-input" type="radio" name="display2-team-radio" id="display2-team-radio-${element.name}" value="${element.name}"><label class="form-check-label" for="display2-team-radio-${element.name}">${element.name}</label></div>`;
-                    });
-                    $("#display2-settings").html(`<h4>Team</h4><form><div class="form-group">${teamOptions}</div></form>`);
+                    displayTeams(value, 'display2');
                 });
                 break;
             case "score":
-                $("#display2-settings").html(`<h4>Score</h4><h5>No Settings Available</h5>`);
-                break;
+                nodecg.readReplicant('teams', value => {
+                    displayScores(value, 'display2');
+                });
             default:
                 $("#display2-settings").html(`<h4>No Settings Available</h4>`);
                 break;
@@ -69,22 +104,18 @@ $(document).ready(function () {
         switch (this.value) {
             case "team":
                 nodecg.readReplicant('teams', value => {
-                    let teamOptions = "";
-                    value.forEach(element => {
-                        teamOptions += `<div class="form-check"><input class="form-check-input" type="radio" name="display3-team-radio" id="display3-team-radio-${element.name}" value="${element.name}"><label class="form-check-label" for="display3-team-radio-${element.name}">${element.name}</label></div>`;
-                    });
-                    $("#display3-settings").html(`<h4>Team</h4><form><div class="form-group">${teamOptions}</div></form>`);
+                    displayTeams(value, 'display3');
                 });
                 break;
             case "score":
-                $("#display3-settings").html(`<h4>Score</h4><h5>No Settings Available</h5>`);
-                break;
+                nodecg.readReplicant('teams', value => {
+                    displayScores(value, 'display3');
+                });
             default:
                 $("#display3-settings").html(`<h4>No Settings Available</h4>`);
                 break;
         }
     });
-
 });
 
 
@@ -92,43 +123,29 @@ function updateControlPanel(display, values) {
     $(`#${display}-mode`).text(values.display_mode);
     let modeOptions = "";
     modes.forEach(mode => {
-        modeOptions += `<div class="form-check"><input class="form-check-input" type="radio" name="${display}-mode-radio" id="${display}-mode-radio-${mode}" value="${mode.value}" ${(mode.value == values.display_mode) ? 'checked' : ''}><label class="form-check-label" class="mode_select" for="${display}-mode-radio-${mode.value}">${mode.name}</label></div>`;
+        modeOptions += `<div class="form-check"><input class="form-check-input" type="radio" name="${display}-mode-radio" id="${display}-mode-radio-${mode.value}" value="${mode.value}" ${(mode.value == values.display_mode) ? 'checked' : ''}><label class="form-check-label" class="mode_select" for="${display}-mode-radio-${mode.value}">${mode.name}</label></div>`;
     });
-
-    $(`#${display}-mode-select`).html(
-        `<h4>Mode</h4>
-        <form>
-        <div class="form-group">
-            ${modeOptions}
-        </div>
-        </form>`
-    );
-
-
+    $(`#${display}-mode-select`).html(`<h4>Mode</h4><form><div class="form-group">${modeOptions}</div></form>`);
     if (values.display_mode == "team") {
         nodecg.readReplicant('teams', value => {
-            let teamOptions = "";
-            value.forEach(element => {
-                teamOptions += `<div class="form-check"><input class="form-check-input" type="radio" name="${display}-team-radio" id="${display}-team-radio-${element.name}" value="${element.name}" ${(values.team.name == element.name) ? 'checked' : ''}><label class="form-check-label" for="${display}-team-radio-${element.name}">${element.name}</label></div>`;
-            });
-            $(`#${display}-settings`).html(
-                `<h4>Team</h4>
-                <form>
-                <div class="form-group">
-                    ${teamOptions}
-                </div>
-                </form>`
-            );
+            displayTeams(value, display);
         });
+    }
+    else if (values.display_mode == "score") {
+        nodecg.readReplicant('teams', value => {
+            displayScores(value, display);
+        });
+    }
+    else {
+        $(`#${display}-settings`).html(`<h4>No Settings Available</h4>`);
     }
 }
 
 async function updateDisplays() {
     console.log('Updating displays...');
-    display1.value = await getDisplayInput('display1');
-    display2.value = await getDisplayInput('display2');
-    display3.value = await getDisplayInput('display3');
-
+    display1.value = await setDisplayInput('display1');
+    display2.value = await setDisplayInput('display2');
+    display3.value = await setDisplayInput('display3');
 }
 
 function reset() {
@@ -153,8 +170,11 @@ function getTeam(name) {
     });
 }
 
-async function getDisplayInput(display) {
+async function setDisplayInput(display) {
     const mode = $(`input[name="${display}-mode-radio"]:checked`).val();
+    let teamName = "";
+    let score = "";
+    console.log(mode);
     switch (mode) {
         case "etsuesports":
             return {
@@ -169,7 +189,7 @@ async function getDisplayInput(display) {
                 "display_mode": "etsucon"
             };
         case "team":
-            const teamName = $(`input[name="${display}-team-radio"]:checked`).val();
+            teamName = $(`input[name="${display}-team-radio"]:checked`).val();
             return {
                 "display_mode": "team",
                 "team": {
@@ -182,8 +202,41 @@ async function getDisplayInput(display) {
                 "display_mode": "vs"
             };
         case "score":
+            teamName = $(`input[name="${display}-team-radio"]:checked`).val();
+            score = $(`#${display}-score-input`).val();
             return {
-                "display_mode": "score"
+                "display_mode": "score",
+                "team": {
+                    "name": teamName,
+                    "logo": await resolveImage(teamName)
+                },
+                "score": score
+            };
+        default:
+            return {
+                "display_mode": "etsuesports"
             };
     }
+}
+
+function displayTeams(teams, display) {
+    nodecg.readReplicant(display, values => {
+        let teamOptions = "";
+        teams.forEach(element => {
+            teamOptions += `<label class="labl"><input type="radio" name="${display}-team-radio" id="${display}-team-radio-${element.name}" value="${element.name}" ${(values.team && values.team.name == element.name) ? 'checked' : ''}><div class="team_select_option" style="background-image: url('../graphics/${element.image}')"></div><div class="team_select_name">${element.name}</div></label>`;
+        });
+        $(`#${display}-settings`).html(`<h4>Team</h4><form><div class="form-group team_select_container">${teamOptions}</div></form>`);
+    });
+}
+
+function displayScores(teams, display) {
+    nodecg.readReplicant(display, values => {
+        let teamOptions = "";
+        teams.forEach(element => {
+            console.log(element);
+            teamOptions += `<label class="labl"><input type="radio" name="${display}-team-radio" id="${display}-team-radio-${element.name}" value="${element.name}" ${(values.team && values.team.name == element.name) ? 'checked' : ''}><div class="team_select_option" style="background-image: url('../graphics/${element.image}')"></div><div class="team_select_name">${element.name}</div></label>`;
+        });
+        const scoreInput = `<div class="form-group"><label for="${display}-score-input">Score (0-9)</label><input type="number" min="0" max="9" class="form-control" id="${display}-score-input" placeholder="Enter score" value="${(values && values.score) ? values.score : ''}"></div>`;
+        $(`#${display}-settings`).html(`<h4>Team</h4><form><div class="form-group team_select_container">${teamOptions}</div>${scoreInput}</form>`);
+    });
 }
