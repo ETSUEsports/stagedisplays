@@ -11,7 +11,6 @@ let displayStatus = { display1: false, display2: false, display3: false };
 $(document).ready(function () {
     graphicInstances.on('change', (newVal, oldVal) => {
         if (typeof newVal !== "undefined") {
-            console.log(newVal);
             newVal.forEach(instance => {
                 if (instance.bundleName == "stagedisplays") {
                     if (instance.pathName == "/bundles/stagedisplays/graphics/display1.html") {
@@ -67,6 +66,13 @@ $(document).ready(function () {
             updateControlPanel('display3', newVal);
         }
     });
+
+    teams.on('change', (newVal, oldVal) => {
+        if (typeof newVal !== "undefined") {
+            console.log('Teams Changed:', newVal);
+        }
+    });
+
 
     $("#display1-mode-select").on('click', 'input', function () {
         switch (this.value) {
