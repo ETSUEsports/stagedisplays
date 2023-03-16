@@ -3,6 +3,9 @@ const display2 = nodecg.Replicant('display2');
 const display3 = nodecg.Replicant('display3');
 const graphicInstances = nodecg.Replicant('graphics:instances', 'nodecg');
 const teams = nodecg.Replicant('teams');
+const googleSheets = nodecg.Replicant('googleSheets');
+const rocketLeague = nodecg.Replicant('rocketLeague');
+const autoUpdate = nodecg.Replicant('autoUpdate');
 
 const modes = [{ value: "etsuesports", name: "ETSU Esports Logo" }, { value: "tricitiesslam", name: "Tri Cities Slam Logo" }, { value: "etsucon", name: "ETSU Con Logo" }, { value: "team", name: "Team Logos" }, { value: "vs", name: "VS Text" }, { value: "score", name: "Team Score" }];
 
@@ -73,6 +76,55 @@ $(document).ready(function () {
         }
     });
 
+    googleSheets.on('change', (newVal, oldVal) => {
+        if (typeof newVal !== "undefined") {
+            console.log('Google Sheets Changed:', newVal);
+            if (newVal.NODECG_GAME != "Rocket League") {
+                changeAutoupdateSection(newVal);
+            } else {
+                nodecg.readReplicant('rocketLeague', value => {
+                    changeAutoupdateSectionRL(value);
+                });
+            }
+        }
+    });
+
+    rocketLeague.on('change', (newVal, oldVal) => {
+        if (typeof newVal !== "undefined") {
+            console.log('Rocket League Changed:', newVal);
+            if (googleSheets.value.NODECG_GAME == "Rocket League") {
+                changeAutoupdateSectionRL(newVal);
+            }
+        }
+    });
+
+    autoUpdate.on('change', (newVal, oldVal) => {
+        if (typeof newVal !== "undefined") {
+            console.log('Auto Update Changed:', newVal);
+            if (newVal) {
+                $("#auto_update").prop('checked', true);
+                $("#auto_update_status").text("is ON");
+                $("#display1-mode-select").addClass("displayControlDisabled");
+                $("#display2-mode-select").addClass("displayControlDisabled");
+                $("#display3-mode-select").addClass("displayControlDisabled");
+                $("#display1-settings").addClass("displayControlDisabled");
+                $("#display2-settings").addClass("displayControlDisabled");
+                $("#display3-settings").addClass("displayControlDisabled");
+
+            }
+            else {
+                $("#auto_update").prop('checked', false);
+                $("#auto_update_status").text("is OFF");
+                $("#display1-mode-select").removeClass("displayControlDisabled");
+                $("#display2-mode-select").removeClass("displayControlDisabled");
+                $("#display3-mode-select").removeClass("displayControlDisabled");
+                $("#display1-settings").removeClass("displayControlDisabled");
+                $("#display2-settings").removeClass("displayControlDisabled");
+                $("#display3-settings").removeClass("displayControlDisabled");
+            }
+        }
+    });
+
 
     $("#display1-mode-select").on('click', 'input', function () {
         switch (this.value) {
@@ -122,11 +174,18 @@ $(document).ready(function () {
                 break;
         }
     });
+
+    $("#auto_update").change(function () {
+        console.log(this.checked);
+        autoUpdate.value = this.checked;
+    });
+
 });
 
-
 function updateControlPanel(display, values) {
-    $(`#${display}-mode`).text(values.display_mode);
+    const modeDisplay = modes.find(mode => mode.value == values.display_mode);
+    $(`#${display}-mode`).text(modeDisplay.name);
+
     let modeOptions = "";
     modes.forEach(mode => {
         modeOptions += `<div class="form-check"><input class="form-check-input" type="radio" name="${display}-mode-radio" id="${display}-mode-radio-${mode.value}" value="${mode.value}" ${(mode.value == values.display_mode) ? 'checked' : ''}><label class="form-check-label" class="mode_select" for="${display}-mode-radio-${mode.value}">${mode.name}</label></div>`;
@@ -155,15 +214,22 @@ async function updateDisplays() {
 }
 
 function reset() {
-    display1.value = { "display_mode": "team", "team": { "name": "ETSU", "logo": "./assets/images/etsu.svg" } };
-    display2.value = { "display_mode": "vs" };
-    display3.value = { "display_mode": "team", "team": { "name": "ETSU", "logo": "./assets/images/etsu.svg" } };
+    nodecg.sendMessage('reset');
 }
 
 function resolveImage(name) {
     return new Promise((resolve, reject) => {
         nodecg.readReplicant('teams', value => {
             resolve(value.find(team => team.name == name).image);
+        });
+    });
+}
+
+function resolveImageByID(id) {
+    console.log(`Resolving image for ${id}`);
+    return new Promise((resolve, reject) => {
+        nodecg.readReplicant('teams', value => {
+            resolve(value.find(team => team.id == id).image);
         });
     });
 }
@@ -239,10 +305,31 @@ function displayScores(teams, display) {
     nodecg.readReplicant(display, values => {
         let teamOptions = "";
         teams.forEach(element => {
-            console.log(element);
             teamOptions += `<label class="labl"><input type="radio" name="${display}-team-radio" id="${display}-team-radio-${element.name}" value="${element.name}" ${(values.team && values.team.name == element.name) ? 'checked' : ''}><div class="team_select_option" style="background-image: url('../graphics/${element.image}')"></div><div class="team_select_name">${element.name}</div></label>`;
         });
         const scoreInput = `<div class="form-group"><label for="${display}-score-input">Score (0-9)</label><input type="number" min="0" max="9" class="form-control" id="${display}-score-input" placeholder="Enter score" value="${(values && values.score) ? values.score : ''}"></div>`;
         $(`#${display}-settings`).html(`<h4>Team</h4><form><div class="form-group team_select_container">${teamOptions}</div>${scoreInput}</form>`);
     });
+}
+
+async function changeAutoupdateSection(value) {
+    $("#current_game").text(value.NODECG_GAME);
+    $("#auto_game_image").attr("src", `../graphics/assets/images/${value.NODECG_GAME}.svg`);
+    $("#auto_left_name").text(value.NODECG_LEFT_TEAM);
+    $("#auto_right_name").text(value.NODECG_RIGHT_TEAM);
+    $("#auto_left_score").text(value.NODECG_LEFT_SCORE);
+    $("#auto_right_score").text(value.NODECG_RIGHT_SCORE);
+    $("#auto_left_image").attr("src", `../graphics/${await resolveImageByID(value.NODECG_LEFT_TEAM)}`);
+    $("#auto_right_image").attr("src", `../graphics/${await resolveImageByID(value.NODECG_RIGHT_TEAM)}`);
+}
+
+async function changeAutoupdateSectionRL(value) {
+    $("#current_game").text("Rocket League");
+    $("#auto_game_image").attr("src", "../graphics/assets/images/Rocket League.svg");
+    $("#auto_left_name").text(value.TEAM_L_NAME.toUpperCase());
+    $("#auto_right_name").text(value.TEAM_R_NAME.toUpperCase());
+    $("#auto_left_score").text(value.TEAM_L_SCORE);
+    $("#auto_right_score").text(value.TEAM_R_SCORE);
+    $("#auto_left_image").attr("src", `../graphics/${await resolveImageByID(value.TEAM_L_NAME.toUpperCase())}`);
+    $("#auto_right_image").attr("src", `../graphics/${await resolveImageByID(value.TEAM_R_NAME.toUpperCase())}`);
 }

@@ -5,7 +5,7 @@ function showTeam(name, image) {
 
 function showScore(name, image, score) {
     $('#container').data('display-mode', 'score');
-    $("#container").html(`<div class="score"><div class="score_left"><img id="score_logo" src="${image}" class="score_logo" alt="Team logo"></div><div class="score_middle"><span class="score_separator">-</span></div><div class="score_right"><div class="score_text">${score}</div></div></div>`);
+    $("#container").html(`<div class="score"><div class="score_left"><img id="score_logo" src="${image}" class="score_logo" alt="Team logo"></div><div class="score_middle"><span class="score_separator">—</span></div><div class="score_right"><div class="score_text">${score}</div></div></div>`);
 }
 
 function showVs() {

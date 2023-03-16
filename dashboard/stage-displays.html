@@ -10,13 +10,45 @@
 </head>
 
 <body>
-	<div class="container text-white">
+	<div class="container-fluid text-white">
 		<div class="row">
 			<div class="col text-center">
 				<h1 class="header">ETSU Esports "Tri Cities Slam" - Stage Displays</h1>
 			</div>
 		</div>
 		<div class="row">
+			<div class="text-center current_game">
+				<div class="toprow">
+					<img class="current_game_img" id="auto_game_image">
+					<h2 class="auto_header">Current Game: <span class="current_game" id="current_game"></span></h2>
+					<a href="https://docs.google.com/spreadsheets/d/1xLZ49UJEAJG4yEhwYYFesvlHqahSkaNux6M1w9Ld_VM/edit#gid=1856147851&range=B11"
+						target="_blank">
+						<h6 class="text-white">Set in Google Sheets (Links externally)</h6>
+					</a>
+					<h4>Auto Update <span id="auto_update_status"> is...</span></h4>
+					<div class="form-check form-switch">
+						<input class="form-check-input" type="checkbox" id="auto_update">
+						<label class="form-check-label" for="auto_update">Auto update data with Google Sheets</label>
+					</div>
+				</div>
+				<div class="current_game_auto_container">
+					<div class="current_game_auto_teams">
+						<div class="current_game_auto_teams_left current_game_auto_team">
+							<h2 class="auto_team_header">Left Team</h2>
+							<h3>Name: <span id="auto_left_name"></span></h3>
+							<h3>Score: <span id="auto_left_score"></span></h3>
+							<img class="auto_team_logo" id="auto_left_image">
+						</div>
+						<div class="current_game_auto_teams_right current_game_auto_team">
+							<h2 class="auto_team_header">Right Team</h2>
+							<h3>Name: <span id="auto_right_name"></span></h3>
+							<h3>Score: <span id="auto_right_score"></span></h3>
+							<img class="auto_team_logo" id="auto_right_image">
+						</div>
+					</div>
+
+				</div>
+			</div>
 			<div class="col">
 				<div class="display" id="display1">
 					<h3 class="header text-center">Stage Display 1</h3>
