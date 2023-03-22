@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-	<link rel="stylesheet" href="./assets/css/cavewall.css">
+    <link rel="stylesheet" href="./assets/css/cavewall.css">
+    <link rel="stylesheet" href="./assets/css/cavewall_ads.css">
 </head>
+
 <body>
-	<div class="container" id="container" data-display="cavewall" data-display-mode="cavewall">
+    <div class="container" id="container" data-display="cavewall" data-display-mode="cavewall">
         <div class="sides" id="sides_container">
             <div class="side left" id="left_container">
                 <!--<div id="left_info">
@@ -32,13 +35,16 @@
                     </div>
                 </div>
                 <div id="ads">
-                    
+                    <div id="ads_loop">
+                        <ul id="ads_list">
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="cavepgm">
             </div>
             <div class="side right" id="right_container">
-                <h1>Tournament Schedule</h1>
+                <h1>Schedule</h1>
                 <div id="schedule">
                     <div class="schedule_item">
                         <div class="schedule_header">
@@ -89,9 +95,11 @@
             </div>
         </div>
         <div class="bottom" id="bottom_container"></div>
-	</div>
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-	<script src="./assets/js/common.js"></script>
-	<script src="./assets/js/cavewall.js"></script>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="./assets/js/common.js"></script>
+    <script src="./assets/js/cavewall.js"></script>
+    <script src="./assets/js/cavewall_ads.js"></script>
 </body>
+
 </html>

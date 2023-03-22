@@ -50,6 +50,13 @@
         "width": 3840,
         "height": 1584
       }
+    ],
+    "assetCategories": [
+      {
+        "name": "ads",
+        "title": "ads",
+        "allowedTypes": ["jpg", "jpeg", "gif", "png"]
+      }
     ]
   },
   "repository": "https://github.com/nodecg/nodecg.git",
