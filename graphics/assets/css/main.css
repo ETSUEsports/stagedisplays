@@ -3,6 +3,12 @@
     src: url('../fonts/IntegralCF-ExtraBold.woff2');
 }
 
+@font-face {
+    font-family: 'IntegralCF-Medium';
+    src: url('../fonts/IntegralCF-Medium.woff2');
+}
+
+
 html,
 body {
     width: 100%;
@@ -90,7 +96,7 @@ body {
     font-size: 10vh;
     font-weight: bold;
     color: white;
-    font-family: IntegralCF-ExtraBold;
+    font-family: IntegralCF-Medium;
     position: relative;
     top: -1vh;
 }
@@ -99,7 +105,7 @@ body {
     font-size: 90vh;
     font-weight: bold;
     color: white;
-    font-family: IntegralCF-ExtraBold;
+    font-family: IntegralCF-Medium;
     position: relative;
     top: -10vh;
     font-variant-numeric: tabular-nums;

@@ -1,0 +1,196 @@
+@font-face {
+    font-family: 'IntegralCF-ExtraBold';
+    src: url('../fonts/IntegralCF-ExtraBold.woff2');
+}
+
+@font-face {
+    font-family: 'IntegralCF-Medium';
+    src: url('../fonts/IntegralCF-Medium.woff2');
+}
+
+html,
+body {
+    width: 3840px;
+    height: 1584px;
+    margin: 0;
+    padding: 0;
+    font-family: IntegralCF-Medium;
+    background-color: #00053E;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.sides {
+    width: 3840px;
+    height: 1332px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.side {
+    margin-top: 0px;
+    width: 736px;
+    height: 1332px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cavepgm {
+    width: 2368px;
+    height: 1332px;
+    background-color: #FFC72C;
+}
+
+.side>h1 {
+    font-family: IntegralCF-ExtraBold;
+    font-size: 85px;
+    color: #FFFFFF;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    text-shadow: 0px 0px 5px #000000;
+}
+
+
+.side.left {
+    background-color: #00053E;
+}
+
+#left_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    color: #FFFFFF;
+    font-size: 40px;
+    line-height: 0px;
+}
+
+.img_title {
+    max-height: 200px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.img_left, .img_right {
+    max-height: 300px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.img_vs {
+    max-height: 200px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+#left_info>.left_team, #left_info>.right_team  {
+    width: 90%;
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.score_separator{
+    font-size: 100px;
+    position: relative;
+    top: 9vh;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 0px;
+    height: 0px;
+}
+
+.score {
+    padding-left: 10px;
+    font-size: 300px;
+    position: relative;
+    top: -5vh;
+}
+
+.side.right {
+    background-color: #00053E;
+}
+
+#schedule {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 40px;
+    line-height: 0px;
+}
+
+.schedule_header>.schedule_header {
+    font-size: 30px;
+    line-height: 0px;
+}
+
+.schedule_body>h3 {
+    font-size: 35px;
+    line-height: 0px;
+}
+
+#left_container #right_container {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#bottom_container {
+    width: 3840px;
+    height: 252px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    background-color: #00053E;
+    background-image: url("../images/CAVEWALL_BOTTOM.png");
+}
+
+hr {
+    border-top: 1px solid #FFC72C;
+    width: 90%;
+}
