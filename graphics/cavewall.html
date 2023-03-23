@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, width=3840, height=1586" />
     <link rel="stylesheet" href="./assets/css/cavewall.css">
     <link rel="stylesheet" href="./assets/css/cavewall_ads.css">
 </head>
@@ -17,11 +18,10 @@
                     <img class="img_left" src="./assets/images/etsu.svg">
                     <img class="img_vs" src="./assets/images/vs.svg">
                     <img class="img_right" src="./assets/images/king.svg">
-                </div>
-            -->
+                </div>-->
                 <div id="left_info">
                     <h1>Current Game</h1>
-                    <img class="img_title" src="./assets/images/Valorant.svg">
+                    <!--<img class="img_title" src="./assets/images/Valorant.svg">-->
                     <div class="left_team">
                         <img class="img_left" src="./assets/images/etsu.svg">
                         <span class="score_separator">—</span>
@@ -34,67 +34,107 @@
                         <h1 class="score">0</h1>
                     </div>
                 </div>
+                            
                 <div id="ads">
                     <div id="ads_loop">
                         <ul id="ads_list">
                         </ul>
                     </div>
                 </div>
+
             </div>
             <div class="cavepgm">
+                <h1>Cave Video Wall PGM</h1>
             </div>
             <div class="side right" id="right_container">
-                <h1>Schedule</h1>
                 <div id="schedule">
-                    <div class="schedule_item">
+                    <div class="schedule_item" id="ow_schedule">
                         <div class="schedule_header">
-                            <h2>Overwatch</h2>
                             <h4>8:15 AM</h4>
+                            <h2>Overwatch</h2>
                         </div>
-                        <div class="schedule_body">
-                            <h3>King vs. ETSU</h3>
-                            <h3>ETSU vs. NE State</h3>
-                            <h3>NE State vs. King</h3>
+                        <div class="schedule_body" >
+                            <div class="schedule_matchup">
+                                <img class="schedule_team" src="./assets/images/king.svg">
+                                <img class="schedule_vs" src="./assets/images/vs.svg">
+                                <img class="schedule_team" src="./assets/images/etsu.svg">
+                            </div>
+                            <div class="schedule_matchup">
+                                <img class="schedule_team" src="./assets/images/etsu.svg">
+                                <img class="schedule_vs" src="./assets/images/vs.svg">
+                                <img class="schedule_team" src="./assets/images/nescc.svg">
+                            </div>
+                            <div class="schedule_matchup">
+                                <img class="schedule_team" src="./assets/images/nescc.svg">
+                                <img class="schedule_vs" src="./assets/images/vs.svg">
+                                <img class="schedule_team" src="./assets/images/king.svg">
+                            </div>
                         </div>
                     </div>
-                    <hr>
                     <div class="schedule_item">
                         <div class="schedule_header">
-                            <h2>IRL Content</h2>
-                            <h4>11:15 AM</h4>
-                        </div>
-                        <div class="schedule_body">
-                            <h3>Practice & Lunch</h3>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="schedule_item">
-                        <div class="schedule_header">
-                            <h2>Rocket League</h2>
                             <h4>12:00 PM</h4>
+                            <h2>Rocket League</h2>
                         </div>
                         <div class="schedule_body">
-                            <h3>NE State vs. King</h3>
-                            <h3>King vs. ETSU</h3>
-                            <h3>ETSU vs. NE State</h3>
+                            <div class="schedule_matchup">
+                                <img class="schedule_team" src="./assets/images/nescc.svg">
+                                <img class="schedule_vs" src="./assets/images/vs.svg">
+                                <img class="schedule_team" src="./assets/images/king.svg">
+                            </div>
+                            <div class="schedule_matchup">
+                                <img class="schedule_team" src="./assets/images/king.svg">
+                                <img class="schedule_vs" src="./assets/images/vs.svg">
+                                <img class="schedule_team" src="./assets/images/etsu.svg">
+                            </div>
+                            <div class="schedule_matchup">
+                                <img class="schedule_team" src="./assets/images/etsu.svg">
+                                <img class="schedule_vs" src="./assets/images/vs.svg">
+                                <img class="schedule_team" src="./assets/images/nescc.svg">
+                            </div>
                         </div>
                     </div>
-                    <hr>
-                    <div class="schedule_item">
+                    <div class="schedule_item active">
                         <div class="schedule_header">
-                            <h2>Valorant</h2>
                             <h4>2:00 PM</h4>
+                            <h2>Valorant</h2>
                         </div>
                         <div class="schedule_body">
-                            <h3>NE State vs. King</h3>
-                            <h3>King vs. ETSU</h3>
-                            <h3>ETSU vs. NE State</h3>
+                            <div class="schedule_matchup">
+                                <img class="schedule_team" src="./assets/images/nescc.svg">
+                                <img class="schedule_vs" src="./assets/images/vs.svg">
+                                <img class="schedule_team" src="./assets/images/king.svg">
+                            </div>
+                            <div class="schedule_matchup">
+                                <img class="schedule_team" src="./assets/images/king.svg">
+                                <img class="schedule_vs" src="./assets/images/vs.svg">
+                                <img class="schedule_team" src="./assets/images/etsu.svg">
+                            </div>
+                            <div class="schedule_matchup">
+                                <img class="schedule_team" src="./assets/images/etsu.svg">
+                                <img class="schedule_vs" src="./assets/images/vs.svg">
+                                <img class="schedule_team" src="./assets/images/nescc.svg">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="bottom" id="bottom_container"></div>
+        <div class="bottom" id="bottom_container">
+            <div class="left bottom_section">
+                <img class="img_bottom" src="./assets/images/tricitiesslam.png">
+            </div>
+            <div class="center bottom_section">
+                <img class="img_bottom" src="./assets/images/twitter.svg">
+                <img class="img_bottom" src="./assets/images/twitch.svg">
+                <h1>ETSUESPORTS</h1>
+                <img class="img_bottom" src="./assets/images/instagram.svg">
+                <img class="img_bottom" src="./assets/images/youtube.svg">
+            </div>
+            <div class="right bottom_section">
+                <img class="img_bottom" src="./assets/images/etsu.svg">
+            </div>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="./assets/js/common.js"></script>

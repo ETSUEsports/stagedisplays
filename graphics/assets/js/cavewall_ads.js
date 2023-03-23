@@ -1,13 +1,8 @@
-const ads = nodecg.Replicant('assets:ads');
+const ads = nodecg.Replicant('assets:cavewall_ads');
 
 ads.on('change', value => {
 	setupAds(value);
 });
-
-nodecg.readReplicant('assets:ads', value => {
-	setupAds(value);
-});
-
 
 const responsiveSlider = function () {
 	const slider = document.getElementById('ads_loop');

@@ -62,7 +62,11 @@ body {
 .cavepgm {
     width: 2368px;
     height: 1332px;
-    background-color: #FFC72C;
+    background-color: #333333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .side>h1 {
@@ -171,19 +175,13 @@ body {
     color: #FFFFFF;
     font-size: 40px;
     line-height: 0px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
-.schedule_header>.schedule_header {
-    font-size: 35px;
-    line-height: 0px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
+.schedule_header>h2 {
+    letter-spacing: 5px;
+    margin-top: 35px;
 }
 
 .schedule_header>h4{
@@ -191,11 +189,11 @@ body {
     font-family: IntegralCF-RegularOblique;
     line-height: 0px;
     margin-top: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
     margin-left: 0px;
     margin-right: 0px;
     padding-top: 0px;
-    padding-bottom: 0px;
+    padding-bottom: 10px;
     padding-left: 0px;
     padding-right: 0px;
 }
@@ -217,21 +215,150 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    bottom: 0px;
 }
 
 #bottom_container {
     width: 3840px;
     height: 252px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
     background-color: #00053E;
-    background-image: url("../images/CAVEWALL_BOTTOM.png");
 }
 
 hr {
     border-top: 1px solid #FFC72C;
     width: 90%;
+}
+
+.cavepgm > h1 {
+    font-family: IntegralCF-ExtraBold;
+    font-size: 300px;
+    color: #FFFFFF;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    text-shadow: 0px 0px 5px #000000;
+}
+
+.schedule_item{
+    width: 100%;
+}
+
+.schedule_body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.schedule_matchup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 60%;
+}
+
+
+.schedule_team{
+    width: 100px;
+    height: 100px;
+}
+
+.schedule_separator{
+    font-size: 50px;
+    position: relative;
+    top: 2.9vh;
+    padding-left: 5px;
+    padding-right: 5px;
+    line-height: 0px;
+    height: 0px;
+}
+
+
+.active {
+    /*border: 10px solid #FFC72C;*/
+    background-color: #000865;
+    border-radius: 10px;
+    /*box-shadow: 5px 10px #888888;*/
+    box-shadow: 0 0 50px #FFC72C;
+}
+
+.schedule_vs{
+    height: 100px;
+}
+/*  first schedule item  */
+.schedule_item:first-child {
+    margin-top: 10px;
+}
+
+#schedule > div > div.schedule_header > h2 {
+    padding-top: 2px;
+}
+
+#schedule > div > div.schedule_header > h4 {
+    padding-top: 15px;
+}
+
+.bottom {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.bottom > .left,  .bottom > .right {
+    flex: 736px;
+}
+
+.bottom > .center {
+    flex: 2368px;
+}
+
+.bottom_section{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.center > .img_bottom{
+    max-height: 120px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.center > h1 {
+    position: relative;
+    bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.img_bottom{
+    max-height: 170px;
+}
+
+.bottom_section > h1 {
+    font-family: IntegralCF-ExtraBold;
+    font-size: 100px;
+    color: #FFFFFF;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    text-shadow: 0px 0px 5px #000000;
 }

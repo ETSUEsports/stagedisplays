@@ -53,8 +53,8 @@
     ],
     "assetCategories": [
       {
-        "name": "ads",
-        "title": "ads",
+        "name": "cavewall_ads",
+        "title": "cavewall_ads",
         "allowedTypes": ["jpg", "jpeg", "gif", "png"]
       }
     ]
