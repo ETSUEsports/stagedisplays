@@ -13,6 +13,54 @@ module.exports = function (nodecg) {
 	const display1 = nodecg.Replicant('display1', { defaultValue: { "display_mode": "team", "team": { "name": "ETSU", "logo": "./assets/images/etsu.svg" } } });
 	const display2 = nodecg.Replicant('display2', { defaultValue: { "display_mode": "vs" } });
 	const display3 = nodecg.Replicant('display3', { defaultValue: { "display_mode": "team", "team": { "name": "ETSU", "logo": "./assets/images/etsu.svg" } } });
+	const cavewall = nodecg.Replicant('cavewall', {
+		defaultValue: {
+			"left": {
+				"display_mode": "score",
+				"team": {
+					"name": "ETSU",
+					"logo": "./assets/images/etsu.svg"
+				},
+				"score": 0
+			},
+			"right": {
+				"display_mode": "schedule",
+				"schedule": [
+					{
+						"event": "Overwatch", "time": "8:15 AM", "active": true,
+						"games":
+							[
+								{ "left": "King", "right": "ETSU" },
+								{ "left": "ETSU", "right": "NESCC" },
+								{ "left": "NESCC", "right": "King" }
+							]
+					},
+					{
+						"event": "Rocket League", "time": "12:00 PM",
+						"games":
+							[
+								{ "left": "NESCC", "right": "King" },
+								{ "left": "King", "right": "ETSU" },
+								{ "left": "ETSU", "right": "NESCC" }
+							]
+					},
+					{
+						"event": "Valorant", "time": "2:00 PM",
+						"games":
+							[
+								{ "left": "NESCC", "right": "King" },
+								{ "left": "King", "right": "ETSU" },
+								{ "left": "ETSU", "right": "NESCC" }
+							]
+					},
+				]
+			}
+		}
+	});
+
+
+
+
 	const teams = nodecg.Replicant('teams', {
 		defaultValue: [
 			{
@@ -177,6 +225,48 @@ module.exports = function (nodecg) {
 				"image": "./assets/images/nescc.svg"
 			}
 		];
+		cavewall.value = {
+			"left": {
+				"display_mode": "score",
+				"team": {
+					"name": "ETSU",
+					"logo": "./assets/images/etsu.svg"
+				},
+				"score": 0
+			},
+			"right": {
+				"display_mode": "schedule",
+				"schedule": [
+					{
+						"event": "Overwatch", "time": "8:15 AM", "active": true,
+						"games":
+							[
+								{ "left": "King", "right": "ETSU" },
+								{ "left": "ETSU", "right": "NESCC" },
+								{ "left": "NESCC", "right": "King" }
+							]
+					},
+					{
+						"event": "Rocket League", "time": "12:00 PM",
+						"games":
+							[
+								{ "left": "NESCC", "right": "King" },
+								{ "left": "King", "right": "ETSU" },
+								{ "left": "ETSU", "right": "NESCC" }
+							]
+					},
+					{
+						"event": "Valorant", "time": "2:00 PM",
+						"games":
+							[
+								{ "left": "NESCC", "right": "King" },
+								{ "left": "King", "right": "ETSU" },
+								{ "left": "ETSU", "right": "NESCC" }
+							]
+					},
+				]
+			}
+		};
 		cb(null);
 	});
 
@@ -232,18 +322,89 @@ module.exports = function (nodecg) {
 		});
 	}
 
+	function doUpdateCaveLeft() {
+		const data = nodecg.readReplicant('googleSheets', 'stagedisplays');
+		resolveImageByID(data.NODECG_LEFT_TEAM).then((leftImage) => {
+			resolveImageByID(data.NODECG_RIGHT_TEAM).then((rightImage) => {
+				cavewall.value.left = {
+					"display_mode": "score",
+					"left": {
+						"team": {
+							"name": data.NODECG_LEFT_TEAM,
+							"logo": leftImage
+						},
+						"score": data.NODECG_LEFT_SCORE
+					},
+					"right": {
+						"team": {
+							"name": data.NODECG_RIGHT_TEAM,
+							"logo": rightImage
+						},
+						"score": data.NODECG_RIGHT_SCORE
+					}
+				};
+				// find the right game in cavewall.value.right.schedule and set active to true for it
+				cavewall.value.right.schedule.forEach((game) => {
+					if (game.event === googleSheets.value.NODECG_GAME) {
+						game.active = true;
+					} else {
+						game.active = false;
+					}
+				});
+			});
+		});
+	}
+
+	function doUpdateCaveLeftRL() {
+		const data = nodecg.readReplicant('rocketLeague', 'stagedisplays');
+		const leftID = data.TEAM_L_NAME.toUpperCase();
+		const rightID = data.TEAM_R_NAME.toUpperCase();
+		resolveImageByID(leftID).then(async (leftImage) => {
+			resolveImageByID(rightID).then(async (rightImage) => {
+				cavewall.value.left = {
+					"display_mode": "score",
+					"left": {
+						"team": {
+							"name": data.TEAM_L_NAME,
+							"logo": leftImage
+						},
+						"score": data.TEAM_L_SCORE
+					},
+					"right": {
+						"team": {
+							"name": data.TEAM_R_NAME,
+							"logo": rightImage
+						},
+						"score": data.TEAM_R_SCORE
+					}
+				};
+				// find the right game in cavewall.value.right.schedule and set active to true for it
+				cavewall.value.right.schedule.forEach((game) => {
+					if (game.event === googleSheets.value.NODECG_GAME) {
+						game.active = true;
+					} else {
+						game.active = false;
+					}
+				});
+			});
+		});
+	}
+
 	setInterval(() => {
 		if (doAutoUpdate) {
 			nodecg.log.info(`Auto Update Triggered for ${googleSheets.value.NODECG_GAME}`);
 			switch (googleSheets.value.NODECG_GAME) {
 				case "Rocket League":
 					doUpdateDisplaysRL();
+					doUpdateCaveLeftRL();
 					break;
 				case "Overwatch":
 					doUpdateDisplays();
+					doUpdateCaveLeft();
 					break;
 				case "Valorant":
 					doUpdateDisplays();
+					doUpdateCaveLeft();
 					break;
 				default:
 					nodecg.log.info("No Game Selected");

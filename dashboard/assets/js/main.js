@@ -1,6 +1,7 @@
 const display1 = nodecg.Replicant('display1');
 const display2 = nodecg.Replicant('display2');
 const display3 = nodecg.Replicant('display3');
+const cavewall = nodecg.Replicant('cavewall');
 const graphicInstances = nodecg.Replicant('graphics:instances', 'nodecg');
 const teams = nodecg.Replicant('teams');
 const googleSheets = nodecg.Replicant('googleSheets');
@@ -8,8 +9,9 @@ const rocketLeague = nodecg.Replicant('rocketLeague');
 const autoUpdate = nodecg.Replicant('autoUpdate');
 
 const modes = [{ value: "etsuesports", name: "ETSU Esports Logo" }, { value: "tricitiesslam", name: "Tri Cities Slam Logo" }, { value: "etsucon", name: "ETSU Con Logo" }, { value: "team", name: "Team Logos" }, { value: "vs", name: "VS Text" }, { value: "score", name: "Team Score" }];
+const caveWallModes = [{ value: "normalLeft", name: "No Game Left" }, { value: "matchup", name: "Current Matchup (No Scores)" }, { value: "score", name: "Current Game" }, { value: "schedule", name: "Schedule" }];
 
-let displayStatus = { display1: false, display2: false, display3: false };
+let displayStatus = { display1: false, display2: false, display3: false, cavewall: false };
 
 $(document).ready(function () {
     graphicInstances.on('change', (newVal, oldVal) => {
@@ -30,6 +32,11 @@ $(document).ready(function () {
                         $("#display3-status-light").removeClass("connected disconnected error").addClass("connected");
                         $("#display3-status-text").text("Connected");
                         displayStatus.display3 = true;
+                    }
+                    else if (instance.pathName == "/bundles/stagedisplays/graphics/cavewall.html") {
+                        $("#cavewall-status-light").removeClass("connected disconnected error").addClass("connected");
+                        $("#cavewall-status-text").text("Connected");
+                        displayStatus.cavewall = true;
                     }
                 }
             });
@@ -67,6 +74,13 @@ $(document).ready(function () {
         if (typeof newVal !== "undefined") {
             console.log('Display3 Changed:', newVal);
             updateControlPanel('display3', newVal);
+        }
+    });
+
+    cavewall.on('change', (newVal, oldVal) => {
+        if (typeof newVal !== "undefined") {
+            console.log('Cavewall Changed:', newVal);
+            updateCaveWallControlPanel(newVal);
         }
     });
 
@@ -203,6 +217,32 @@ function updateControlPanel(display, values) {
     }
     else {
         $(`#${display}-settings`).html(`<h4>No Settings Available</h4>`);
+    }
+}
+
+function updateCaveWallControlPanel(values){
+    console.log(values)
+    if(values.left){
+        const leftValues = values.left;
+        const modeDisplay = caveWallModes.find(mode => mode.value == leftValues.display_mode);
+        $(`#cavewall-left-mode`).text(modeDisplay.name);
+        let modeOptions = "";
+        caveWallModes.forEach(mode => {
+            modeOptions += `<div class="form-check"><input class="form-check-input" type="radio" name="cavewall-left-mode-radio" id="cavewall-left-mode-radio-${mode.value}" value="${mode.value}" ${(mode.value == leftValues.display_mode) ? 'checked' : ''}><label class="form-check-label" class="mode_select" for="cavewall-left-mode-radio-${mode.value}">${mode.name}</label></div>`;
+        });
+        $(`#cavewall-left-mode-select`).html(`<h4>Mode</h4><form><div class="form-group">${modeOptions}</div></form>`);
+
+    }
+
+    if(values.right){
+        const rightValues = values.right;
+        const modeDisplay = caveWallModes.find(mode => mode.value == rightValues.display_mode);
+        $(`#cavewall-right-mode`).text(modeDisplay.name);
+        let modeOptions = "";
+        caveWallModes.forEach(mode => {
+            modeOptions += `<div class="form-check"><input class="form-check-input" type="radio" name="cavewall-right-mode-radio" id="cavewall-right-mode-radio-${mode.value}" value="${mode.value}" ${(mode.value == rightValues.display_mode) ? 'checked' : ''}><label class="form-check-label" class="mode_select" for="cavewall-right-mode-radio-${mode.value}">${mode.name}</label></div>`;
+        });
+        $(`#cavewall-right-mode-select`).html(`<h4>Mode</h4><form><div class="form-group">${modeOptions}</div></form>`);
     }
 }
 
