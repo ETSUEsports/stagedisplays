@@ -74,18 +74,21 @@ module.exports = function (nodecg) {
 		defaultValue: [
 			{
 				"id": "ETSU",
+				"altID": "EASTTENNESSEE",
 				"name": "ETSU",
 				"longName": "East Tennessee State University",
 				"image": "./assets/images/etsu.svg"
 			},
 			{
 				"id": "KING",
+				"altID": "KINGU",
 				"name": "King",
 				"longName": "King University",
 				"image": "./assets/images/king.svg"
 			},
 			{
 				"id": "NESCC",
+				"altID": "NORTHEAST",
 				"name": "NESCC",
 				"longName": "Northeast State Community College",
 				"image": "./assets/images/nescc.svg"
@@ -100,7 +103,7 @@ module.exports = function (nodecg) {
 
 	const resolveImageByID = (id) => {
 		return new Promise((resolve, reject) => {
-			const team = teams.value.find((team) => team.id === id);
+			const team = teams.value.find((team) => team.id === id || team.altID === id);
 			if (team) {
 				resolve(team.image);
 			} else {

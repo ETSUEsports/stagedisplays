@@ -44,16 +44,23 @@ $(document).ready(function () {
             if (!displayStatus.display1) {
                 $("#display1-status-light").removeClass("connected disconnected error").addClass("disconnected");
                 $("#display1-status-text").text("Disconnected");
+                displayStatus.display1 = false;
             }
             if (!displayStatus.display2) {
                 $("#display2-status-light").removeClass("connected disconnected error").addClass("disconnected");
                 $("#display2-status-text").text("Disconnected");
+                displayStatus.display2 = false;
             }
             if (!displayStatus.display3) {
                 $("#display3-status-light").removeClass("connected disconnected error").addClass("disconnected");
                 $("#display3-status-text").text("Disconnected");
+                displayStatus.display3 = false;
             }
-            displayStatus = { display1: false, display2: false, display3: false };
+            if (!displayStatus.cavewall) {
+                $("#cavewall-status-light").removeClass("connected disconnected error").addClass("disconnected");
+                $("#cavewall-status-text").text("Disconnected");
+                displayStatus.cavewall = false;
+            }
         }
     });
 
@@ -278,7 +285,7 @@ function resolveImage(name) {
 function resolveImageByID(id) {
     return new Promise((resolve, reject) => {
         nodecg.readReplicant('teams', value => {
-            resolve(value.find(team => team.id == id).image);
+            resolve(value.find(team => team.id == id || team.altID == id).image);
         });
     });
 }

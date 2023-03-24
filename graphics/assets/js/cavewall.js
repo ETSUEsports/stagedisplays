@@ -91,7 +91,7 @@ async function displayCurrentGame(data){
 function resolveImageByID(id) {
     return new Promise((resolve, reject) => {
         nodecg.readReplicant('teams', value => {
-            resolve(value.find(team => team.id == id).image);
+            resolve(value.find(team => team.id == id || team.altID == id).image);
         });
     });
 }
