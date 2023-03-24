@@ -78,7 +78,7 @@ async function displayCurrentGame(data){
         <span class="score_separator">—</span>
         <h1 class="score">${data.left.score}</h1>
     </div>
-    <img class="img_vs" src="./assets/images/vs.svg">
+    <img class="img_vs big_vs" src="./assets/images/vs.svg">
     <div class="right_team">
         <img class="img_right" src="${right}">
         <span class="score_separator">—</span>

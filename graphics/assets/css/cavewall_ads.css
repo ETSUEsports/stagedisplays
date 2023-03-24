@@ -1,20 +1,20 @@
 #ads_loop{
-    width: 500px;
-    height: 138.89px;
+    width: 700px;
+    height: auto;
     overflow: hidden;
     position: relative;
     top: 0px;
 }
 
 img.ads {
-    width: 500px;
-    height: 138.89px;
+    width: 700px;
+    height: auto;
 }
 
 #ads_list{
     position: relative;
     list-style: none;
-    height: 138.89px;
+    height: auto;
     width: 10000%;
     padding: 0;
     margin: 0;
@@ -24,7 +24,7 @@ img.ads {
 
 .ads_item {
     position: relative;
-    height: 138.89px;
+    height: auto;
     float: left;
 }
 
@@ -33,6 +33,6 @@ img.ads {
     justify-content: center;
     align-items: center;
     position: relative;
-    bottom: 0px;
+    bottom: -150px;
     padding-top: 50px;
 }

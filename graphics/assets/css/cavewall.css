@@ -315,6 +315,10 @@ hr {
 
 .bottom>.center {
     flex: 2368px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .bottom_section {
@@ -364,4 +368,24 @@ hr {
     min-width: 100%;
     min-height: 100%;
     z-index: -100;
+}
+
+.tricitiesslam{
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+    display: block;
+    width: 600px;
+    height: auto;
+}
+
+.big_vs {
+    width: 50%;
+    transform: scale(2);
+}
+
+.con_bottom_logo{
+    height: 250px;
+    transform: scale(1.5);
+    width: auto;
 }
