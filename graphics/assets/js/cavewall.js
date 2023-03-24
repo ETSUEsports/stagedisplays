@@ -33,7 +33,6 @@ function updateWallRight(data) {
 
 async function displaySchedule(data){
     let html = '<div id="schedule">';
-
    for(let i = 0; i < data.length; i++){
          const item = data[i];
             html += `
@@ -70,10 +69,8 @@ async function displaySchedule(data){
 }
 
 async function displayCurrentGame(data){
-    console.log(data);
     const left = await resolveImageByID(data.left.team.name.toUpperCase());
     const right = await resolveImageByID(data.right.team.name.toUpperCase());
-    console.log(left, right);
     let html = `
     <h1>Current Game</h1>
     <div class="left_team">

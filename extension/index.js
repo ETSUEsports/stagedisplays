@@ -17,11 +17,20 @@ module.exports = function (nodecg) {
 		defaultValue: {
 			"left": {
 				"display_mode": "score",
-				"team": {
-					"name": "ETSU",
-					"logo": "./assets/images/etsu.svg"
+				"left": {
+					"team": {
+						"name": "ETSU",
+						"logo": "./assets/images/etsu.svg"
+					},
+					"score": 0
 				},
-				"score": 0
+				"right": {
+					"team": {
+						"name": "King",
+						"logo": "./assets/images/king.svg"
+					},
+					"score": 0
+				}
 			},
 			"right": {
 				"display_mode": "schedule",
@@ -228,11 +237,20 @@ module.exports = function (nodecg) {
 		cavewall.value = {
 			"left": {
 				"display_mode": "score",
-				"team": {
-					"name": "ETSU",
-					"logo": "./assets/images/etsu.svg"
+				"left": {
+					"team": {
+						"name": "ETSU",
+						"logo": "./assets/images/etsu.svg"
+					},
+					"score": 0
 				},
-				"score": 0
+				"right": {
+					"team": {
+						"name": "King",
+						"logo": "./assets/images/king.svg"
+					},
+					"score": 0
+				}
 			},
 			"right": {
 				"display_mode": "schedule",

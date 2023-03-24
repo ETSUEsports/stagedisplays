@@ -8,8 +8,9 @@ const googleSheets = nodecg.Replicant('googleSheets');
 const rocketLeague = nodecg.Replicant('rocketLeague');
 const autoUpdate = nodecg.Replicant('autoUpdate');
 
+const games = [{ value: "Overwatch", name: "Overwatch" }, { value: "Rocket League", name: "Rocket League" }, { value: "Valorant", name: "Valorant" }];
 const modes = [{ value: "etsuesports", name: "ETSU Esports Logo" }, { value: "tricitiesslam", name: "Tri Cities Slam Logo" }, { value: "etsucon", name: "ETSU Con Logo" }, { value: "team", name: "Team Logos" }, { value: "vs", name: "VS Text" }, { value: "score", name: "Team Score" }];
-const caveWallModes = [{ value: "normalLeft", name: "No Game Left" }, { value: "matchup", name: "Current Matchup (No Scores)" }, { value: "score", name: "Current Game" }, { value: "schedule", name: "Schedule" }];
+const caveWallModes = [{ value: "normalLeft", name: "No Game Left", "restrict": "left" }, { value: "matchup", name: "Current Matchup (No Scores)", "restrict": "left" }, { value: "score", name: "Current Game", "restrict": "left" }, { value: "schedule", name: "Schedule", "restrict": "right" }];
 
 let displayStatus = { display1: false, display2: false, display3: false, cavewall: false };
 
@@ -124,7 +125,6 @@ $(document).ready(function () {
                 $("#display1-settings").addClass("displayControlDisabled");
                 $("#display2-settings").addClass("displayControlDisabled");
                 $("#display3-settings").addClass("displayControlDisabled");
-
             }
             else {
                 $("#auto_update").prop('checked', false);
@@ -220,29 +220,39 @@ function updateControlPanel(display, values) {
     }
 }
 
-function updateCaveWallControlPanel(values){
+function updateCaveWallControlPanel(values) {
     console.log(values)
-    if(values.left){
+    if (values.left) {
         const leftValues = values.left;
         const modeDisplay = caveWallModes.find(mode => mode.value == leftValues.display_mode);
         $(`#cavewall-left-mode`).text(modeDisplay.name);
+        /*
         let modeOptions = "";
         caveWallModes.forEach(mode => {
-            modeOptions += `<div class="form-check"><input class="form-check-input" type="radio" name="cavewall-left-mode-radio" id="cavewall-left-mode-radio-${mode.value}" value="${mode.value}" ${(mode.value == leftValues.display_mode) ? 'checked' : ''}><label class="form-check-label" class="mode_select" for="cavewall-left-mode-radio-${mode.value}">${mode.name}</label></div>`;
+            if (mode.restrict == undefined || mode.restrict == "left" || mode.restrict == "both") {
+                modeOptions += `<div class="form-check"><input class="form-check-input" type="radio" name="cavewall-left-mode-radio" id="cavewall-left-mode-radio-${mode.value}" value="${mode.value}" ${(mode.value == leftValues.display_mode) ? 'checked' : ''}><label class="form-check-label" class="mode_select" for="cavewall-left-mode-radio-${mode.value}">${mode.name}</label></div>`;
+            }
         });
         $(`#cavewall-left-mode-select`).html(`<h4>Mode</h4><form><div class="form-group">${modeOptions}</div></form>`);
-
+        */
     }
 
-    if(values.right){
+    if (values.right) {
         const rightValues = values.right;
         const modeDisplay = caveWallModes.find(mode => mode.value == rightValues.display_mode);
         $(`#cavewall-right-mode`).text(modeDisplay.name);
+        /*
         let modeOptions = "";
         caveWallModes.forEach(mode => {
-            modeOptions += `<div class="form-check"><input class="form-check-input" type="radio" name="cavewall-right-mode-radio" id="cavewall-right-mode-radio-${mode.value}" value="${mode.value}" ${(mode.value == rightValues.display_mode) ? 'checked' : ''}><label class="form-check-label" class="mode_select" for="cavewall-right-mode-radio-${mode.value}">${mode.name}</label></div>`;
+            if (mode.restrict == undefined || mode.restrict == "right" || mode.restrict == "both") {
+                modeOptions += `<div class="form-check"><input class="form-check-input" type="radio" name="cavewall-right-mode-radio" id="cavewall-right-mode-radio-${mode.value}" value="${mode.value}" ${(mode.value == rightValues.display_mode) ? 'checked' : ''}><label class="form-check-label" class="mode_select" for="cavewall-right-mode-radio-${mode.value}">${mode.name}</label></div>`;
+            }
         });
         $(`#cavewall-right-mode-select`).html(`<h4>Mode</h4><form><div class="form-group">${modeOptions}</div></form>`);
+        if (rightValues.display_mode == "schedule") {
+            displayGames(rightValues);
+        }
+        */
     }
 }
 
@@ -266,7 +276,6 @@ function resolveImage(name) {
 }
 
 function resolveImageByID(id) {
-    console.log(`Resolving image for ${id}`);
     return new Promise((resolve, reject) => {
         nodecg.readReplicant('teams', value => {
             resolve(value.find(team => team.id == id).image);
@@ -286,7 +295,6 @@ async function setDisplayInput(display) {
     const mode = $(`input[name="${display}-mode-radio"]:checked`).val();
     let teamName = "";
     let score = "";
-    console.log(mode);
     switch (mode) {
         case "etsuesports":
             return {
@@ -350,6 +358,14 @@ function displayScores(teams, display) {
         const scoreInput = `<div class="form-group"><label for="${display}-score-input">Score (0-9)</label><input type="number" min="0" max="9" class="form-control" id="${display}-score-input" placeholder="Enter score" value="${(values && values.score) ? values.score : ''}"></div>`;
         $(`#${display}-settings`).html(`<h4>Team</h4><form><div class="form-group team_select_container">${teamOptions}</div>${scoreInput}</form>`);
     });
+}
+
+function displayGames(values) {
+    let gameOptions = "";
+    games.forEach(element => {
+        gameOptions += `<label class="labl"><input type="radio" name="game-radio" id="game-radio-${element.name}" value="${element.name}" ${(values.game && values.game.name == element.name) ? 'checked' : ''}><div class="game_select_option" style="background-image: url('../graphics/assets/images/${element.name}.svg')"></div><div class="game_select_name">${element.name}</div></label>`;
+    });
+    $(`#cavewall-right-settings`).html(`<h4>Active Game</h4><form><div class="form-group game_select_container">${gameOptions}</div></form>`);
 }
 
 async function changeAutoupdateSection(value) {
