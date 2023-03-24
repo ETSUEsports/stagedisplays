@@ -103,7 +103,7 @@ module.exports = function (nodecg) {
 
 	const resolveImageByID = (id) => {
 		return new Promise((resolve, reject) => {
-			const team = teams.value.find((team) => team.id === id || team.altID === id);
+			const team = teams.value.find((team) => team.id == id || team.altID == id);
 			if (team) {
 				resolve(team.image);
 			} else {
@@ -171,6 +171,8 @@ module.exports = function (nodecg) {
 	// pull data from Google Sheets
 
 	setInterval(() => {
+		if(!doAutoUpdate) return; // Don't do anything if auto update is disabled
+		
 		getGoogleSheetsData().then((data) => {
 			const parsedData = Papa.parse(data, { header: true, skipEmptyLines: true });
 			const result = parsedData.data
@@ -181,12 +183,14 @@ module.exports = function (nodecg) {
 			nodecg.log.error(`Error pulling data from Google Sheets: ${error}`);
 		});
 
-		getRocketLeagueData().then((data) => {
-			rocketLeague.value = data[0];
-		}).catch((error) => {
-			nodecg.log.error(`Error pulling data from Rocket League: ${error}`);
-		});
-	}, 1000);
+		if(googleSheets.value.NODECG_GAME == "Rocket League"){
+			getRocketLeagueData().then((data) => {
+				rocketLeague.value = data[0];
+			}).catch((error) => {
+				nodecg.log.error(`Error pulling data from Rocket League: ${error}`);
+			});
+		}
+	}, 500);
 
 	function getGoogleSheetsData() {
 		return new Promise((resolve, reject) => {
@@ -413,7 +417,7 @@ module.exports = function (nodecg) {
 
 	setInterval(() => {
 		if (doAutoUpdate) {
-			nodecg.log.info(`Auto Update Triggered for ${googleSheets.value.NODECG_GAME}`);
+			/* nodecg.log.info(`Auto Update Triggered for ${googleSheets.value.NODECG_GAME}`); */
 			switch (googleSheets.value.NODECG_GAME) {
 				case "Rocket League":
 					doUpdateDisplaysRL();
@@ -429,6 +433,7 @@ module.exports = function (nodecg) {
 					break;
 				default:
 					nodecg.log.info("No Game Selected");
+					break;
 			}
 		}
 	}, 1000);

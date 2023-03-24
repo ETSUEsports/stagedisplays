@@ -132,6 +132,8 @@ $(document).ready(function () {
                 $("#display1-settings").addClass("displayControlDisabled");
                 $("#display2-settings").addClass("displayControlDisabled");
                 $("#display3-settings").addClass("displayControlDisabled");
+                $("#save").attr("disabled", true);
+                $("#reset").attr("disabled", true);
             }
             else {
                 $("#auto_update").prop('checked', false);
@@ -142,6 +144,8 @@ $(document).ready(function () {
                 $("#display1-settings").removeClass("displayControlDisabled");
                 $("#display2-settings").removeClass("displayControlDisabled");
                 $("#display3-settings").removeClass("displayControlDisabled");
+                $("#save").attr("disabled", false);
+                $("#reset").attr("disabled", false);
             }
         }
     });

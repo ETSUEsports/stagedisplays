@@ -25,30 +25,35 @@
 						target="_blank">
 						<h6 class="text-white">Set in Google Sheets (Links externally)</h6>
 					</a>
+					<a href="https://etsuesports.ryois.net/rocket-league-frontend/dashboard"
+						target="_blank">
+						<h6 class="text-white">Open Rocket League Overlay Dashboard (Links externally)</h6>
+					</a>
 					<h4>Auto Update <span id="auto_update_status"> is...</span></h4>
 					<div class="form-check form-switch">
 						<input class="form-check-input" type="checkbox" id="auto_update">
-						<label class="form-check-label" for="auto_update">Auto update data with Google Sheets</label>
+						<label class="form-check-label" for="auto_update">Auto update data with Google Sheets and/or
+							ETSU Esports Rocket League API</label>
 					</div>
 				</div>
 				<div class="current_game_auto_container">
 					<div class="current_game_auto_teams">
 						<div class="current_game_auto_teams_left current_game_auto_team">
-							<h2 class="auto_team_header">Left Team</h2>
+							<h2 class="auto_team_header">Auto Left Team</h2>
 							<h3>Name: <span id="auto_left_name"></span></h3>
 							<h3>Score: <span id="auto_left_score"></span></h3>
 							<img class="auto_team_logo" id="auto_left_image">
 						</div>
 						<div class="current_game_auto_teams_right current_game_auto_team">
-							<h2 class="auto_team_header">Right Team</h2>
+							<h2 class="auto_team_header">Auto Right Team</h2>
 							<h3>Name: <span id="auto_right_name"></span></h3>
 							<h3>Score: <span id="auto_right_score"></span></h3>
 							<img class="auto_team_logo" id="auto_right_image">
 						</div>
 					</div>
-
 				</div>
 			</div>
+			<h2 class="text-center text-bg-danger">Settings per display are disabled when in auto mode!</h2>
 			<div class="col">
 				<div class="display" id="display1">
 					<h3 class="header text-center">Stage Display 1</h3>
@@ -114,19 +119,19 @@
 						<div class="left">
 							<h4>Left Current Mode: <span class="current_mode" id="cavewall-left-mode"></span></h4>
 							<div class="mode_select" id="cavewall-left-mode-select">
-		
+
 							</div>
 							<div class="settings" id="cavewall-left-settings">
-		
+
 							</div>
 						</div>
 						<div class="right">
 							<h4>Right Current Mode: <span class="current_mode" id="cavewall-right-mode"></span></h4>
 							<div class="mode_select" id="cavewall-right-mode-select">
-		
+
 							</div>
 							<div class="settings" id="cavewall-right-settings">
-		
+
 							</div>
 						</div>
 					</div>
@@ -136,7 +141,7 @@
 		<div class="row save_row">
 			<div class="col text-center">
 				<button class="btn btn-success" id="save" onclick="updateDisplays()">Save</button>
-				<button class="btn btn-danger" id="save" onclick="reset()">Reset</button>
+				<button class="btn btn-danger" id="reset" onclick="reset()">Reset</button>
 			</div>
 		</div>
 		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
