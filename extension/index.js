@@ -39,13 +39,11 @@ module.exports = function (nodecg) {
 						"event": "Overwatch", "time": "8:15 AM", "active": true,
 						"games":
 							[
-								{ "left": "King", "right": "ETSU" },
-								{ "left": "ETSU", "right": "NESCC" },
-								{ "left": "NESCC", "right": "King" }
+								{ "left": "King", "right": "ETSU" }
 							]
 					},
 					{
-						"event": "Rocket League", "time": "12:00 PM",
+						"event": "Rocket League", "time": "11:30 AM",
 						"games":
 							[
 								{ "left": "NESCC", "right": "King" },
@@ -54,7 +52,7 @@ module.exports = function (nodecg) {
 							]
 					},
 					{
-						"event": "Valorant", "time": "2:00 PM",
+						"event": "Valorant", "time": "1:00 PM",
 						"games":
 							[
 								{ "left": "NESCC", "right": "King" },
